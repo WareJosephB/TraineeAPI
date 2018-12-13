@@ -1,15 +1,12 @@
 package com.qa.TraineeAPI.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.qa.TraineeAPI.util.Constants;
 import com.qa.TraineeAPI.util.Producer;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.domain.CVRequest;
@@ -23,9 +20,6 @@ public class CVService implements ICVService {
 	@Autowired
 	private Producer producer;
 
-	@Autowired
-	private JmsTemplate jmsTemplate;
-
 	public String uploadFile(CV cv, String traineeUserName) {
 		Trainee author = new Trainee(traineeUserName);
 		author.setCvList(new ArrayList<CV>());
@@ -33,8 +27,7 @@ public class CVService implements ICVService {
 		UserRequest request = new UserRequest();
 		request.setUserToAddOrUpdate(author);
 		request.setHowToAct(com.qa.persistence.domain.UserRequest.requestType.ADDCV);
-		producer.produce(request);
-		return Constants.CV_QUEUED_MESSAGE;
+		return producer.produceMessage(request);
 	}
 
 	public String uploadFile(MultipartFile cvDoc, String traineeUserName) {
@@ -43,15 +36,14 @@ public class CVService implements ICVService {
 		return uploadFile(thisCV, traineeUserName);
 	}
 
-	public List<CV> getCVsForTrainee(Trainee trainee) {
+	public Iterable<CV> getCVsForTrainee(Trainee trainee) {
 		UserRequest request = new UserRequest();
 		request.setUserToAddOrUpdate(trainee);
 		request.setHowToAct(com.qa.persistence.domain.UserRequest.requestType.READALL);
-		producer.produce(request);
-		return (List<CV>) jmsTemplate.receiveAndConvert(Constants.OUTGOING_CV_QUEUE_NAME);
+		return producer.produceCVs(request);
 	}
 
-	public List<CV> getCVsForTrainee(String traineeUserName) {
+	public Iterable<CV> getCVsForTrainee(String traineeUserName) {
 		Trainee thisTrainee = new Trainee(traineeUserName);
 		return getCVsForTrainee(thisTrainee);
 	}
@@ -60,8 +52,7 @@ public class CVService implements ICVService {
 		CVRequest request = new CVRequest();
 		request.setcvIDtoActUpon(cvID);
 		request.setType(requestType.DELETE);
-		producer.produce(request);
-		return Constants.CV_QUEUED_MESSAGE;
+		return producer.produceMessage(request);
 	}
 
 	@Override
@@ -69,16 +60,14 @@ public class CVService implements ICVService {
 		CVRequest request = new CVRequest();
 		request.setcvIDtoActUpon(cvID);
 		request.setType(requestType.READ);
-		producer.produce(request);
-		return (Optional<CV>) jmsTemplate.receiveAndConvert(Constants.OUTGOING_CV_QUEUE_NAME);
+		return producer.produceCV(request);
 	}
 
 	@Override
-	public List<CV> getAllCVs() {
+	public Iterable<CV> getAllCVs() {
 		CVRequest request = new CVRequest();
 		request.setType(requestType.READALL);
-		producer.produce(request);
-		return (List<CV>) jmsTemplate.receiveAndConvert(Constants.OUTGOING_CV_QUEUE_NAME);
+		return producer.produceCVs(request);
 	}
 
 }

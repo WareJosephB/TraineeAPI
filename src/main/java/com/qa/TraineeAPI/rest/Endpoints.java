@@ -1,6 +1,5 @@
 package com.qa.TraineeAPI.rest;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +43,12 @@ public class Endpoints {
 	}
 
 	@GetMapping("${URL.method.CV.getAll}")
-	public List<CV> getAllCVs() {
+	public Iterable<CV> getAllCVs() {
 		return cvService.getAllCVs();
 	}
 
 	@GetMapping("${URL.method.CV.getForUser}/{userName}")
-	public List<CV> getCVsForUser(@PathVariable("userName") String traineeUsername) {
+	public Iterable<CV> getCVsForUser(@PathVariable("userName") String traineeUsername) {
 		return cvService.getCVsForTrainee(traineeUsername);
 	}
 

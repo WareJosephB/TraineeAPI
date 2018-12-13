@@ -6,6 +6,7 @@ public class CV {
 
 	private Long cvID;
 	private MultipartFile file;
+	private String errorMessage;
 
 	public CV(Long cvID, MultipartFile file) {
 		this.cvID = cvID;
@@ -29,6 +30,14 @@ public class CV {
 
 	public void setFiles(MultipartFile cvDoc) {
 		this.file = cvDoc;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }

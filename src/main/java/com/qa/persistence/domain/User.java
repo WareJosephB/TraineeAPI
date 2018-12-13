@@ -10,16 +10,16 @@ public abstract class User {
 
 	private String firstName;
 	private String lastName;
-	private String _id;
+	private String username;
 	private String password;
 
 	@JsonTypeId
 	public String type;
-	
+
 	public User(String userName) {
 		this.setUsername(userName);
 	}
-	
+
 	public User() {
 	}
 
@@ -48,11 +48,11 @@ public abstract class User {
 	}
 
 	public String getUsername() {
-		return _id;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		this._id = username;
+		this.username = username;
 	}
 
 	public String getPassword() {
