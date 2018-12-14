@@ -31,10 +31,10 @@ public class Endpoints {
 	@Autowired
 	private ITraineeService traineeServ;
 
-	@PostMapping("${URL.method.CV.upload}")
+	@PostMapping("${URL.method.CV.upload}/{username}")
 	public String multiUploadFileModel(@RequestParam("cvDoc") MultipartFile cvDoc,
-			@PathVariable String traineeUserName) {
-		return cvService.uploadFile(cvDoc, traineeUserName);
+			@PathVariable("username") String traineeUsername) {
+		return cvService.uploadFile(cvDoc, traineeUsername);
 	}
 
 	@GetMapping("${URL.method.CV.getByID}/{cvID}")
@@ -47,8 +47,8 @@ public class Endpoints {
 		return cvService.getAllCVs();
 	}
 
-	@GetMapping("${URL.method.CV.getForUser}/{userName}")
-	public Iterable<CV> getCVsForUser(@PathVariable("userName") String traineeUsername) {
+	@GetMapping("${URL.method.CV.getForUser}/{username}")
+	public Iterable<CV> getCVsForUser(@PathVariable("username") String traineeUsername) {
 		return cvService.getCVsForTrainee(traineeUsername);
 	}
 
@@ -62,8 +62,8 @@ public class Endpoints {
 		return traineeServ.create(trainee);
 	}
 
-	@GetMapping("${URL.method.Trainee.getByUserName}/{userName}")
-	public Optional<Trainee> getTrainee(@PathVariable("userName") String username) {
+	@GetMapping("${URL.method.Trainee.getByUserName}/{username}")
+	public Optional<Trainee> getTrainee(@PathVariable("username") String username) {
 		return traineeServ.get(username);
 	}
 
@@ -72,13 +72,13 @@ public class Endpoints {
 		return traineeServ.getAll();
 	}
 
-	@PutMapping("${URL.method.Trainee.update}/{userName}")
-	public String updateTrainee(@PathVariable("userName") String username, @RequestBody Trainee trainee) {
+	@PutMapping("${URL.method.Trainee.update}/{username}")
+	public String updateTrainee(@PathVariable("username") String username, @RequestBody Trainee trainee) {
 		return traineeServ.update(username, trainee);
 	}
 
-	@DeleteMapping("${URL.method.Trainee.delete}/{userName}")
-	public String deleteTrainee(@PathVariable("userName") String userName) {
-		return traineeServ.delete(userName);
+	@DeleteMapping("${URL.method.Trainee.delete}/{username}")
+	public String deleteTrainee(@PathVariable("userName") String username) {
+		return traineeServ.delete(username);
 	}
 }
