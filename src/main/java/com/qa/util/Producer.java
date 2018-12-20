@@ -1,4 +1,4 @@
-package com.qa.TraineeAPI.util;
+package com.qa.util;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,20 +30,13 @@ public class Producer {
 		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_TRAINEE_QUEUE_NAME, request, String.class);
 	}
 
-	public Optional<CV> produceCV(CVRequest request) {
-		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_CV_QUEUE_NAME, request, Optional.class);
-	}
-
-	public Iterable<CV> produceCVs(CVRequest request) {
-		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_CV_QUEUE_NAME, request, List.class);
+	public void produceMessage(CVRequest request) {
+		jmsTemplate.convertAndSend(Constants.INCOMING_CV_QUEUE_NAME, request);
 	}
 
 	public Iterable<CV> produceCVs(UserRequest request) {
-		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_CV_QUEUE_NAME, request, List.class);
-	}
+		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_TRAINEE_QUEUE_NAME, request, List.class);
 
-	public String produceMessage(CVRequest request) {
-		return jmsTemplate.convertSendAndReceive(Constants.INCOMING_TRAINEE_QUEUE_NAME, request, String.class);
 	}
 
 }

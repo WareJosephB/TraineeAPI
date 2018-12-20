@@ -1,8 +1,10 @@
-package com.qa.TraineeAPI.rest;
+package com.qa.rest;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.qa.TraineeAPI.service.ICVService;
-import com.qa.TraineeAPI.service.ITraineeService;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.domain.Trainee;
+import com.qa.service.ICVService;
+import com.qa.service.ITraineeService;
 
 @RequestMapping("${URL.base}")
 @CrossOrigin
@@ -40,6 +42,11 @@ public class Endpoints {
 	@GetMapping("${URL.method.CV.getByID}/{cvID}")
 	public Optional<CV> getCV(@PathVariable("cvID") Long cvid) {
 		return cvService.getCV(cvid);
+	}
+
+	@GetMapping("${URL.method.CV.download}/{cvID}")
+	public ResponseEntity<ByteArrayResource> downloadCV(@PathVariable("cvID") Long id) {
+		return cvService.downloadCV(id);
 	}
 
 	@GetMapping("${URL.method.CV.getAll}")

@@ -1,20 +1,32 @@
 package com.qa.persistence.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Trainee extends User {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String username;
 	private boolean currentlyHired;
-	private boolean flagged;
-	private List<CV> cvList;
+	private boolean tagged;
+	private ArrayList<String> emails;
 
 	public Trainee(String userName) {
 		super(userName);
 		this.type = "Trainee";
+		this.emails = new ArrayList<>();
 	}
 
 	public Trainee() {
 		this.type = "Trainee";
+		this.emails = new ArrayList<>();
 	}
 
 	public boolean isCurrentlyHired() {
@@ -25,20 +37,31 @@ public class Trainee extends User {
 		this.currentlyHired = currentlyHired;
 	}
 
-	public boolean isFlagged() {
-		return flagged;
+	public boolean isTagged() {
+		return tagged;
 	}
 
-	public void setFlagged(boolean flagged) {
-		this.flagged = flagged;
+	public void tag(String email) {
+		this.emails.add(email);
 	}
 
-	public List<CV> getCvList() {
-		return cvList;
+	public void setTagged(boolean flagged) {
+		this.tagged = flagged;
 	}
 
-	public void setCvList(List<CV> cvList) {
-		this.cvList = cvList;
+	public List<String> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(List<String> emails) {
+		this.emails = (ArrayList<String>) emails;
+	}
+
+	public void update(Trainee updatedTrainee) {
+		this.setFirstName(updatedTrainee.getFirstName());
+		this.setLastName(updatedTrainee.getLastName());
+		this.setCurrentlyHired(updatedTrainee.isCurrentlyHired());
+		this.setTagged(updatedTrainee.isTagged());
 	}
 
 }

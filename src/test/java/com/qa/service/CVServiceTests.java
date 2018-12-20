@@ -15,13 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 
-import com.qa.TraineeAPI.service.CVService;
-import com.qa.TraineeAPI.util.Producer;
-import com.qa.TraineeAPI.util.TraineeConstants;
-import com.qa.TraineeAPI.webservices.Consumer;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.domain.Trainee;
+import com.qa.service.CVService;
 import com.qa.testConstants.Constants;
+import com.qa.util.Producer;
+import com.qa.util.TraineeConstants;
+import com.qa.webservices.Consumer;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CVServiceTests {

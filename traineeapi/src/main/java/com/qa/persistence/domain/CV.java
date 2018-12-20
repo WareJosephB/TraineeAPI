@@ -1,17 +1,17 @@
 package com.qa.persistence.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
 public class CV {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long _id;
+	private String errorMessage;
 	@Lob
 	private byte[] contents;
 	private String fileName;
@@ -56,6 +56,14 @@ public class CV {
 
 	public void setCvID(Long cvID) {
 		this._id = cvID;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }

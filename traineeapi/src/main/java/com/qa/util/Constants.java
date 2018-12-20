@@ -1,4 +1,4 @@
-package com.qa.TraineeAPI.util;
+package com.qa.util;
 
 public class Constants {
 
@@ -26,5 +26,16 @@ public class Constants {
 	public static final String CV_QUEUED_MESSAGE = "CV placed on queue succesfully";
 
 	public static final String CVS_QUEUED_MESSAGE = "CVs placed on queue succesfully";
+
+	public static final String CV_ADDED_MESSAGE = "CV added to database succesfully";
+	
+	public static final String CV_DELETED_MESSAGE = "CV deleted from database succesfully";
+
+	public static final String USER_DELETED_MESSAGE = "User deleted from database succesfully";;
+
+	public static final String USER_UPDATE_MESSAGE = "User updated succesfully";;
+
+	public static final String USER_ADDED_MESSAGE = "User added to database succesfully";;
+
 
 }

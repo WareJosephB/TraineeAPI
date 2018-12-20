@@ -1,11 +1,12 @@
-package com.qa.TraineeAPI.service;
+package com.qa.service;
 
 import java.util.Optional;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.qa.persistence.domain.CV;
-import com.qa.persistence.domain.Trainee;
 
 public interface ICVService {
 
@@ -18,9 +19,9 @@ public interface ICVService {
 	Iterable<CV> getAllCVs();
 
 	Iterable<CV> getCVsForTrainee(String traineeUsername);
-
-	Iterable<CV> getCVsForTrainee(Trainee trainee);
-
+	
 	String deleteCV(Long cvID);
+
+	ResponseEntity<ByteArrayResource> downloadCV(Long cvID);
 
 }

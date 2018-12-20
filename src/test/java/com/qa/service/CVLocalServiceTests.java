@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.qa.TraineeAPI.service.CVServiceLocal;
 import com.qa.persistence.domain.Trainee;
+import com.qa.service.CVServiceLocal;
 
 
 

@@ -1,4 +1,4 @@
-package com.qa.TraineeAPI.service;
+package com.qa.service;
 
 import java.util.Optional;
 
@@ -8,12 +8,14 @@ public interface ITraineeService {
 
 	String create(Trainee trainee);
 
+	String update(String username, Trainee updatedDetails);
+
+	String delete(String username);
+
 	Optional<Trainee> get(String username);
 
 	Iterable<Trainee> getAll();
 
-	String update(String username, Trainee updatedDetails);
-
-	String delete(String username);
+	String tag(String username, String email);
 
 }

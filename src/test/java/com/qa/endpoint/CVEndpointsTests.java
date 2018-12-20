@@ -17,16 +17,16 @@ import com.qa.testConstants.Constants;
 
 import junit.framework.Assert;
 
-import com.qa.TraineeAPI.rest.Endpoints;
-import com.qa.TraineeAPI.service.CVService;
 import com.qa.persistence.domain.CV;
 import com.qa.persistence.domain.Trainee;
+import com.qa.rest.EndpointInterface;
+import com.qa.service.CVService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CVEndpointsTests {
 	
 	@InjectMocks
-	private Endpoints endpoints;
+	private EndpointInterface endpoints;
 	
 	@Mock
 	CVService service;
